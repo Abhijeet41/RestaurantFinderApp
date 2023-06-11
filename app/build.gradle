@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+   // id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -27,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures {
         compose true
@@ -48,10 +53,9 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation Deps.core
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation Deps.appcompat
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
@@ -64,4 +68,34 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    implementation Dagger.dagger
+    kapt Dagger.kaptHiltCompiler
+    implementation Dagger.hiltComposeNavigation
+
+    implementation Lifecycle.livedata
+    implementation Lifecycle.viewmodel
+    implementation Lifecycle.runtime
+    implementation Lifecycle.extensions
+
+    implementation Coroutines.coroutine_core
+    implementation Coroutines.coroutine_android
+
+    implementation Retrofit.retrofit2
+    implementation Retrofit.retrofit2_gson
+    implementation Retrofit.retrofit_converter
+
+    implementation GoogleMaps.maps_utils
+    implementation GoogleMaps.services_location
+    implementation GoogleMaps.places
+    implementation GoogleMaps.map_compose
+    //implementation GoogleMaps.googlePlaysServicesMap
+
+    implementation Coil.coil
+
+    implementation Room.room_ktx
+    kapt Room.kapt_room_compiler
+    implementation Room.room_runtime
+
+
 }
